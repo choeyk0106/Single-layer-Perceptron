@@ -2,12 +2,19 @@
 	Project no.2
 	student ID : 20113337
 	student name : Choi_young keun
+
+	Single-layer perceptron
 """
 
 import numpy as np
 import matplotlib.pyplot as plt
 import random
 
+"""-------------------------------------------------
+	Name : plotTheDecisionBoundary()
+	Input = 1*3 weight vector, state
+	Description : ploting the linear equation of weight vector
+-------------------------------------------------"""
 def plotTheDecisionBoundary(weight, state):
 	rangeX, rangeY = np.arange(-7,10), np.arange(-7,10)
 	xx, yy = np.meshgrid(rangeX, rangeY)
@@ -18,12 +25,22 @@ def plotTheDecisionBoundary(weight, state):
 	elif state == 0:
 		plt.contour(xx, yy, Z, [0.1], colors = 'y')
 
+"""-------------------------------------------------
+	Name : plotTheTwoData()
+	Input = n*3 matrix
+	Description : ploting the input data
+-------------------------------------------------"""
 def plotTheTwoData(w1, w2):
 	plt.axis([-7, 10, -8, 10])
 	for i in range(0, 10):
 		plt.plot(w1[i][0], w1[i][1], 'rs')
 		plt.plot(w2[i][0], w2[i][1], 'bo')
 
+"""-------------------------------------------------
+	Name : readFile()
+	Input = n*3 matrix
+	Description : read the file and save the data
+-------------------------------------------------"""
 def readFile(w1, w2):
 
 	f = open("input.txt", 'r')
@@ -40,6 +57,12 @@ def readFile(w1, w2):
 
 	f.close()
 
+"""-------------------------------------------------
+	Name : perceptron()
+	Input = n*3 matrix, 1*3 weight vector
+	Description : input*weight -> layer -> output
+				  output -> activate -> return f(net)
+-------------------------------------------------"""
 def perceptron(data, weight):
 	
 	temp = data[0]*weight[0] + data[1]*weight[1] + data[2]*weight[2]
@@ -47,9 +70,20 @@ def perceptron(data, weight):
 
 	return net
 
+"""-------------------------------------------------
+	Name : calculateErrorRate()
+	Input = true value, predict value
+	Description : calculate the f(net) value
+-------------------------------------------------"""
 def calculateErrorRate(value, predictValue):
 	return abs((value - predictValue)/2)
 
+"""-------------------------------------------------
+	Name : activateFunc()
+	Input = value
+	Description : input data > 0  -> class 1
+				  input data < 0  -> class 2
+-------------------------------------------------"""
 def activateFunc(sum):
 
 	if sum > 0:
@@ -66,9 +100,8 @@ if __name__ == '__main__':
 	weight = np.zeros(3)
 	error = 0
 	
-	it = 0
-	#while(it < 100):
-	#	it += 1
+	#learingRate is random(0~1)
+	#weight vector random(-0.5~0.5)
 	while(1):
 		totalError = 0
 		learningRate = random.random()
